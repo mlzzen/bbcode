@@ -1,6 +1,8 @@
 package lexer
 
-import "unicode/utf8"
+import (
+	"unicode/utf8"
+)
 
 type T uint8
 
@@ -35,6 +37,7 @@ const (
 	TTableRows
 	TTableContentCells
 	TYoutubeVideos
+	TAttribute
 )
 
 var tokenToString = []string{
@@ -72,6 +75,12 @@ var Keywords = map[string]T{
 	"th":      TTableContentCells,
 	"td":      TTableContentCells,
 	"youtube": TYoutubeVideos,
+}
+
+var Attributes = map[string]T{
+	"width":  TAttribute,
+	"height": TAttribute,
+	"*":      TAttribute,
 }
 
 func (t T) String() string {
@@ -117,13 +126,11 @@ func Tokenizer(input string) TokenizeResult {
 		source: input,
 	}
 	var tokens []Token
-
 	l.step()
 	if l.cp == '\uFEFF' {
 		l.step()
 	}
 	l.next()
-
 	for l.token.Kind != TEof {
 		tokens = append(tokens, l.token)
 		l.next()
@@ -135,10 +142,11 @@ func Tokenizer(input string) TokenizeResult {
 }
 
 func (lexer *lexer) step() {
-	cp, width := utf8.DecodeLastRuneInString(lexer.source[lexer.pos:])
+	cp, width := utf8.DecodeRuneInString(lexer.source[lexer.pos:])
 	if width == 0 {
 		cp = -1
 	}
+
 	lexer.cp = cp
 	lexer.token.Loc.Len = int32(lexer.pos) - lexer.token.Loc.Start
 	lexer.pos += width
@@ -182,6 +190,11 @@ func (lexer *lexer) next() {
 }
 
 func (lexer *lexer) consumeIdent() T {
-	lexer.step()
+	for {
+		if lexer.cp == endOfFile || lexer.cp == '[' {
+			break
+		}
+		lexer.step()
+	}
 	return TIdent
 }
