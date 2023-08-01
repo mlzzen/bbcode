@@ -34,3 +34,10 @@ func TestTokens(t *testing.T) {
 		})
 	}
 }
+
+func TestBOM(t *testing.T) {
+	tok, _ := lexToken("\uFEFF")
+	if tok.String() != TEof.String() {
+		t.Fatalf("%s != %s", tok.String(), TEof.String())
+	}
+}

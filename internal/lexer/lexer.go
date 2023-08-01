@@ -7,23 +7,71 @@ type T uint8
 const endOfFile = -1
 
 const (
-	TIdent T = iota
+	TEof T = iota
+	TIdent
 	TWhiteSpace
 	TEqual
 	TOpenBraceket
 	TCloseBracket
 	TBadToken
-	TEof
+	TBold
+	TItalic
+	TUnderline
+	TStrikethrough
+	TFontSize
+	TFontColor
+	TCenterText
+	TLeftAlignText
+	TRightAlignText
+	TQuote
+	TSpoiler
+	TLink
+	TImage
+	TList
+	TListItem
+	TCode
+	TPreformatted
+	TTables
+	TTableRows
+	TTableContentCells
+	TYoutubeVideos
 )
 
 var tokenToString = []string{
+	"<eof-token>",
 	"<ident-token>",
 	"<whitespace-token>",
 	"<=-token>",
 	"<[-token>",
 	"<]-token>",
 	"<bad-token>",
-	"<eof-token>",
+}
+
+var Keywords = map[string]T{
+	"b":       TBold,
+	"i":       TItalic,
+	"u":       TUnderline,
+	"s":       TStrikethrough,
+	"size":    TFontSize,
+	"color":   TFontColor,
+	"center":  TCenterText,
+	"left":    TLeftAlignText,
+	"right":   TRightAlignText,
+	"quote":   TQuote,
+	"spoiler": TSpoiler,
+	"url":     TLink,
+	"img":     TImage,
+	"ul":      TList,
+	"ol":      TList,
+	"list":    TList,
+	"li":      TListItem,
+	"code":    TCode,
+	"pre":     TPreformatted,
+	"table":   TTables,
+	"tr":      TTableRows,
+	"th":      TTableContentCells,
+	"td":      TTableContentCells,
+	"youtube": TYoutubeVideos,
 }
 
 func (t T) String() string {
