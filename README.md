@@ -10,6 +10,6 @@ A bbcode parser implement by go.
 
 ### TODO
 
-- [ ] Tokenzier
+- [x] Tokenzier
 - [ ] Parse
 - [ ] Code gen

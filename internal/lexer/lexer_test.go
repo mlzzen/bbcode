@@ -128,6 +128,12 @@ func TestKeywordWithUnnecessaryWhiteSpace(t *testing.T) {
 	test.AssertEqual(t, lexContenet("[/b align justify-all]"), "<bold-token>")
 }
 
+func TestKeyWordWithAttribues(t *testing.T) {
+	input := "[b align justify-all] hello world! [/b]"
+	toks := Tokenizer(input).Tokens
+	test.AssertEqual(t, len(toks), 6)
+}
+
 func TestBOM(t *testing.T) {
 	tok, _ := lexToken("\uFEFF")
 	test.AssertEqual(t, tok, TEof)

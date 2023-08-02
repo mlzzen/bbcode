@@ -84,6 +84,10 @@ func isLetterStart(s rune) bool {
 	return (s >= 'a' && s <= 'z') || (s >= 'A' && s <= 'Z')
 }
 
+func IsAttribute(s rune) bool {
+	return isLetterStart(s) || s == '-' || IsNumeric(s)
+}
+
 type Loc struct {
 	Start int32
 	Len   int32
@@ -108,6 +112,7 @@ type lexer struct {
 	pos       int
 	cp        rune
 	token     Token
+	attribute Token
 	attribues []Token
 }
 
@@ -175,15 +180,24 @@ func (lexer *lexer) next() {
 			// We handle open tag  and close tag here
 			lexer.step()
 			if isLetterStart(lexer.cp) {
-				lexer.token.Kind = lexer.consumeKeyword()
-				// if lexer.token.Kind
-				// lexer.consumeAttribues()
+				skiped := false
+				lexer.token.Kind, skiped = lexer.consumeKeyword()
+				if !skiped {
+					for {
+						if lexer.cp == ']' {
+							lexer.step()
+							break
+						}
+						lexer.consumeAttribues()
+						lexer.attribues = append(lexer.attribues, lexer.attribute)
+					}
+				}
 			} else if lexer.cp == '/' {
 				lexer.step()
 				if !isLetterStart(lexer.cp) {
 					lexer.token.Kind = TBadToken
 				} else {
-					lexer.token.Kind = lexer.consumeKeyword()
+					lexer.token.Kind, _ = lexer.consumeKeyword()
 					for isLetterStart(lexer.cp) || isWhiteSpace(lexer.cp) || lexer.cp == '-' {
 						lexer.step()
 					}
@@ -217,7 +231,7 @@ func (lexer *lexer) consumeIdent() T {
 	return TIdent
 }
 
-func (lexer *lexer) consumeKeyword() T {
+func (lexer *lexer) consumeKeyword() (k T, skiped bool) {
 	var sb strings.Builder
 	for {
 		if isLetterStart(lexer.cp) {
@@ -231,18 +245,20 @@ func (lexer *lexer) consumeKeyword() T {
 		lexer.step()
 	}
 	if lexer.cp == ']' {
+		skiped = true
 		lexer.step()
 	}
-	return Keywords[sb.String()]
+	return Keywords[sb.String()], skiped
 }
 
 func (lexer *lexer) consumeAttribues() {
-	if lexer.cp == ']' {
-		return
-	}
 	var sb strings.Builder
+	lexer.attribute = Token{
+		Kind: TAttribute,
+		Loc:  Loc{Start: lexer.attribute.Loc.End()},
+	}
 	for {
-		if isLetterStart(lexer.cp) || IsNumeric(lexer.cp) {
+		if IsAttribute(lexer.cp) {
 			sb.WriteRune(lexer.cp)
 			lexer.step()
 		} else {
@@ -252,7 +268,5 @@ func (lexer *lexer) consumeAttribues() {
 	for isWhiteSpace(lexer.cp) {
 		lexer.step()
 	}
-	// lexer.token.Kind = TAttribute
-	// lexer.attribues = append(lexer.attribues, lexer.token)
-	// lexer.consumeAttribues()
+	lexer.attribute.Loc.Len = int32(sb.Len())
 }
