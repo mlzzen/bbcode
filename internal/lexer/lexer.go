@@ -39,33 +39,35 @@ const (
 	TTableContentCells
 	TYoutubeVideos
 	TAttribute
+	TCollapse
 )
 
 var Keywords = map[string]T{
-	"b":       TBold,
-	"i":       TItalic,
-	"u":       TUnderline,
-	"s":       TStrikethrough,
-	"size":    TFontSize,
-	"color":   TFontColor,
-	"center":  TCenterText,
-	"left":    TLeftAlignText,
-	"right":   TRightAlignText,
-	"quote":   TQuote,
-	"spoiler": TSpoiler,
-	"url":     TLink,
-	"img":     TImage,
-	"ul":      TList,
-	"ol":      TList,
-	"list":    TList,
-	"li":      TListItem,
-	"code":    TCode,
-	"pre":     TPreformatted,
-	"table":   TTables,
-	"tr":      TTableRows,
-	"th":      TTableContentCells,
-	"td":      TTableContentCells,
-	"youtube": TYoutubeVideos,
+	"b":        TBold,
+	"i":        TItalic,
+	"u":        TUnderline,
+	"s":        TStrikethrough,
+	"size":     TFontSize,
+	"color":    TFontColor,
+	"center":   TCenterText,
+	"left":     TLeftAlignText,
+	"right":    TRightAlignText,
+	"quote":    TQuote,
+	"spoiler":  TSpoiler,
+	"url":      TLink,
+	"img":      TImage,
+	"ul":       TList,
+	"ol":       TList,
+	"list":     TList,
+	"li":       TListItem,
+	"code":     TCode,
+	"pre":      TPreformatted,
+	"table":    TTables,
+	"tr":       TTableRows,
+	"th":       TTableContentCells,
+	"td":       TTableContentCells,
+	"youtube":  TYoutubeVideos,
+	"collapse": TCollapse,
 }
 
 func (t T) String() string {
@@ -255,15 +257,11 @@ func (lexer *lexer) consumeAttribues() {
 	var sb strings.Builder
 	lexer.attribute = Token{
 		Kind: TAttribute,
-		Loc:  Loc{Start: lexer.attribute.Loc.End()},
+		Loc:  Loc{Start: int32(lexer.pos - 1)},
 	}
-	for {
-		if IsAttribute(lexer.cp) {
-			sb.WriteRune(lexer.cp)
-			lexer.step()
-		} else {
-			break
-		}
+	for !isWhiteSpace(lexer.cp) && lexer.cp != ']' {
+		sb.WriteRune(lexer.cp)
+		lexer.step()
 	}
 	for isWhiteSpace(lexer.cp) {
 		lexer.step()

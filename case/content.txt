@@ -1,0 +1,186 @@
+[size=150][color=red]前言[/color][/size]
+
+之前潭里已经有一篇POB的使用教程了，不过那是2018年的了 [url]https://bbs.nga.cn/read.php?tid=13392184[/url]
+后来POB有了一些变动，所以有了此篇教程。自己对POB了解也不是很多，希望对那些刚接触POB的朋友有所帮助，如有错误，也欢迎老哥们指正。
+
+[collapse=POB国际服以及国服说明]
+POB最早是由 Openarl 开发的，后来作者弃坑，社区接手了，不过至此POB都只有英文的。
+
+后来17173的一位大佬发布了POB的汉化版，再后来另外一位大佬幸福的闪电接手了这个汉化版 [url]https://gitee.com/echo28/PathOfBuildingCN17173[/url] ，
+
+不过此汉化版对词条的解析和POB社区版不同，是按中文解析的，社区版是按英文解析的，一般来说，中文版是把社区版汉化，这就会有一个延迟性，难以维护，以及巨大的工作量，没有人愿意来接手。
+
+至此，国际服社区版POB是不能导入台服，以及国服角色的，因为国际服社区版是按英文解析装备词条的，所以台服有个工具可以把台服角色生成国际服POB代码 [url]https://void-battery.afq984.org/pob/[/url] 。
+
+国服也有个工具，可以把国服角色导入到国际服POB中， 作者 [@会编程的流放者] [url]https://www.bilibili.com/video/BV1SU4y1e7S8/#reply686302958[/url]
+
+目前来说，国际服的POB计算会比国服准一些。
+
+所以又出现了另外一个工具，PoeCharm，此工具不干扰社区版POB的计算，只汉化，但是呢无法导入国服角色 [url]https://www.caimogu.cc/post/18719.html[/url]
+[/collapse]
+
+[size=130%][color=green]一、下载安装[/color][/size]
+
+国际服社区版：能正常访问外网的朋友可以直接在 [url]https://github.com/PathOfBuildingCommunity/PathOfBuilding/releases[/url] 下载
+国服版：可以在我另外一个帖子下载 [url]https://bbs.nga.cn/read.php?tid=34764877[/url]
+
+PoeCharm：[url]https://www.caimogu.cc/post/18719.html[/url]
+
+[size=130%][color=green]二、导入与导出[/color][/size]
+[collapse=二、导入与导出]
+[color=seagreen][size=120%]1. 通过账号名，角色名导入[/size][/color]
+以国服POB举例，打开POB，你的界面是这样的
+
+[img]./mon_202301/19/-30w46Q2r-flnqZgT3cSsg-gv.jpg[/img]
+
+点击左上角的[color=green]导入/导出[/color]
+
+把论坛名输入到框里面，点击[color=green]开始[/color]
+
+[img]./mon_202301/19/-30w46Q2r-h3rfK1gT3cSq8-75.jpg[/img]
+
+点击开始后，会拉取到你的角色列表，但是点击导入装备，天赋的时候又会提示输入 POESESSID
+
+[img]./mon_202301/27/-30w46Q2r-d7ezZcT3cSxn-eo.jpg[/img]
+
+[img]./mon_202301/27/-30w46Q2r-n12ZfT3cSrt-d1.jpg[/img]
+
+获取 POESESSID 的方法一楼写，这里假设复制了 POESESSID，然后把 POESESSID 粘贴进去，点击继续
+然后又到了这个界面，点击导入装备和天赋，正常来说，这里就可以导入成功了。
+[img]./mon_202301/27/-30w46Q2r-d7ezZcT3cSxn-eo.jpg[/img]
+
+[color=seagreen][size=120%]2. 通过Pastebin链接或者ninja链接导入[/size][/color]
+因为pob生成的文字很长，所以一般通过Pastebin分享短链接
+
+以国服POB为例，如果是pastebin短链接，点击右下角的[color=green]从pastebin导入[/color]，如果是很长的pob代码(比如国服天梯那里复制的，顺便一说，国服天梯那里的天赋图还是s16的)，就把pob代码输入到左下角，
+
+然后点击[color=green]导入到当前build[/color]
+[img]./mon_202301/27/-30w46Q2r-ecg2ZbT3cSym-bq.jpg[/img]
+
+[color=seagreen][size=120%]3. 生成pob代码或者生成pastebin链接[/size][/color]
+
+点击生成，会生成一个很长很长的pob代码，长到qq无法直接发送，所以一般会点击那个[color=green]生成pastebin链接[/color]生成pastebin链接
+[img]./mon_202301/27/-30w46Q2r-ecg2ZbT3cSym-bq.jpg[/img]
+[/collapse]
+
+
+[size=130%][color=green]三、界面介绍[/color][/size]
+
+[collapse=三、界面介绍]
+[img]./mon_202301/27/-30w46Q2r-jaheZjT3cSsg-f9.jpg[/img]
+
+点击 左上角 那里的不同按钮，切换 右边 显示不同的界面。
+
+左边 主要显示选中技能的施法速度，攻击速度，暴击率，暴击伤害，以及显示角色的生命，护盾，魔力等等。
+
+这里可以切换显示不同技能的
+
+[img]./mon_202301/27/-30w46Q2r-afwlKwT1kSh1-4o.jpg[/img]
+[/collapse]
+
+[size=130%][color=green]四、build相关配置[/color][/size]
+
+[collapse=四、build相关配置]
+点击左上角的配置，切换到配置界面
+
+以我在玩的魔蛊地雷举例
+
+输入近期引爆的地雷数量，假设为10吧，勾上暴击球，狂怒球，代表暴击球和狂怒球达到最大值，
+
+因为魔蛊地雷这BD暴击率很高，冰冻率，点燃率，感电率也很高，所以我们这把[color=green]敌人被冰冻[/color]，[color=green]敌人被感电[/color]，[color=green]敌人被点燃[/color]勾上
+
+如果带了死亡凋零的，记得输入死亡凋零的层数。
+
+[color=green]这里还可以配置敌人是否是boss，异界超级首领，守卫，这几种抗性不同，减伤不同。通过配置这个，可以看到我们bd对不同boss的伤害。[/color]
+[/collapse]
+
+[size=130%][color=green]五、装备物品[/color][/size]
+
+[collapse=五、装备物品]
+[color=seagreen][size=120%]1. 创建装备[/size][/color]
+选择想要创建装备的类型，与基底。
+类型，基底太多，不太好找？
+[color=green]把下拉框点击出来，然后直接搜索。国服版只能搜索中文名，国际服POB只能搜索英文名。[/color]
+
+[img]./mon_202301/27/-30w46Q2r-afhbK1gT3cSkv-7q.jpg[/img]
+
+[color=seagreen][size=120%]2. 从游戏里面或者网页市集复制然后创建装备[/size][/color]
+在游戏里面，鼠标对着装备，ctrl+c 可以把装备信息复制到粘贴板，然后打开POB装备物品界面，直接ctrl+v，可以把装备粘贴过来。
+
+网页市集点击装备图片的左下角复制，同理，也可以复制到POB里面。
+
+[img]./mon_202301/27/-30w46Q2r-2y85K29T3cSs2-pr.jpg[/img]
+
+[color=green]粘贴过来后，可以和原来的装备进行对比，绿色的是变强的，红色的是变弱的，这也是在市集找装备很常用的技巧。[/color]
+
+[img]./mon_202301/27/-30w46Q2r-by0jK2iT3cSjb-bb.jpg[/img]
+
+POB里面的装备的词条都是可以随便编辑的，只要符合解析规则就行。红色的词条就代表没有解析(目前还挺多的)。
+
+如果遇到某个词条没有解析，比如之前的禁域面容的“法术的基础暴击率等於主手武器的暴击率” 没有解析，可以随便给某件装备加一条当前武器暴击率的基础暴击率，弥补这其中少的暴击率。
+
+[img]./mon_202301/27/-30w46Q2r-1mlgZiT3cSsg-f8.jpg[/img]
+
+[/collapse]
+
+[size=130%][color=green]六、技能组[/color][/size]
+[collapse=六、技能组]
+如果是图腾，地雷，弓bd啥的，记得在技能右边输入数量，然后勾上包含在全部DPS，会在左下角显示一个综合DPS。
+
+[img]./mon_202301/27/-30w46Q2r-kcwvZgT3cSsg-jn.jpg[/img]
+
+[/collapse]
+
+[size=130%][color=green]七、计算面板[/color][/size]
+[collapse=七、计算面板]
+计算面板可以切换不同技能，切换不同模式。
+
+[img]./mon_202301/27/-30w46Q2r-ts9ZaT3cSr4-93.jpg[/img]
+
+在这个界面可以技能包含哪些类型的伤害，每种类型的伤害提高从哪里来的
+
+[img]./mon_202301/27/-30w46Q2r-ewpxZbT3cSsg-8b.jpg[/img]
+
+可以看到冰冻，点燃，感电几率，以及暴击率是由哪些天赋，物品提高的。
+
+[img]./mon_202301/27/-30w46Q2r-71svZhT3cSsg-84.jpg[/img]
+
+[/collapse]
+
+[size=130%][color=green]八、天赋树[/color][/size]
+[collapse=八、天赋树]
+鼠标可以放到天赋点上，看到每个天赋点的收益。
+
+可以在下方的输入框里面输入关键字搜索天赋点。
+
+天赋树可以在下面导入导出。
+
+POB里面可以看到对应编号永恒珠宝的每个天赋的属性。
+
+永恒珠宝算法已经被破解，一个查询永恒珠宝的网站：[url]https://vilsol.github.io/timeless-jewels/tree[/url]
+[/collapse]
+
+[size=130%][color=green]九、POB根据自己的BD生成一个市集链接，包含词条权重[/color][/size]
+[collapse=九、POB根据自己的BD生成一个市集链接，包含词条权重]
+目前国服POB没这个功能，只有国际服POB有这个功能，可以把国服角色导入到国际服POB中，推荐这个帖子。
+
+[url]https://bbs.nga.cn/read.php?tid=35142593[/url]
+
+这个帖子已经说了怎么操作，我说说怎么应用到国服市集。
+[url]https://bbs.nga.cn/read.php?tid=35096320[/url]
+
+这样会生成一个链接，把它全选，然后复制，粘贴到一个文本编辑器中，比如vscode，记事本啥的，
+[img]./mon_202301/27/-30w46Q2r-1e2zK17T3cSnb-36.jpg[/img]
+
+可以看到它是一个这样的链接，把[color=green][url]https://www.pathofexile.com/trade/search/Sanctum[/url][/color]替换成[color=green][url]https://poe.game.qq.com/trade/search/S21%E8%B5%9B%E5%AD%A3[/url][/color]
+[img]./mon_202301/27/-30w46Q2r-i0taK2jT3cSng-5g.jpg[/img]
+
+[img]./mon_202301/27/-30w46Q2r-lep6K2qT3cSor-5v.jpg[/img]
+
+然后把整个链接复制，在浏览器中打开。
+
+[img]./mon_202301/27/-30w46Q2r-7xcxZbT3cSsg-j8.jpg[/img]
+[/collapse]
+
+
+ 

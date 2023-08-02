@@ -30,4 +30,5 @@ var tokenToString = map[T]string{
 	TTableContentCells: "<table-cell-token>",
 	TYoutubeVideos:     "<youtube-videos-token>",
 	TAttribute:         "<attribute-token>",
+	TCollapse:          "<collapse-token>",
 }
