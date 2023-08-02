@@ -68,18 +68,16 @@ var Keywords = map[string]T{
 	"youtube": TYoutubeVideos,
 }
 
-var Attributes = map[string]T{
-	"width":  TAttribute,
-	"height": TAttribute,
-	"*":      TAttribute,
-}
-
 func (t T) String() string {
 	return tokenToString[t]
 }
 
 func isWhiteSpace(s rune) bool {
 	return s == ' ' || s == '\t'
+}
+
+func IsNumeric(s rune) bool {
+	return s >= '0' && s <= '9'
 }
 
 func isLetterStart(s rune) bool {
@@ -106,10 +104,11 @@ func (token Token) DecodedText(s string) string {
 }
 
 type lexer struct {
-	source string
-	pos    int
-	cp     rune
-	token  Token
+	source    string
+	pos       int
+	cp        rune
+	token     Token
+	attribues []Token
 }
 
 type TokenizeResult struct {
@@ -128,6 +127,10 @@ func Tokenizer(input string) TokenizeResult {
 	l.next()
 	for l.token.Kind != TEof {
 		tokens = append(tokens, l.token)
+		if len(l.attribues) > 0 {
+			tokens = append(tokens, l.attribues...)
+			l.attribues = l.attribues[:0]
+		}
 		l.next()
 	}
 
@@ -169,15 +172,24 @@ func (lexer *lexer) next() {
 			lexer.step()
 			continue
 		case '[':
+			// We handle open tag  and close tag here
 			lexer.step()
 			if isLetterStart(lexer.cp) {
 				lexer.token.Kind = lexer.consumeKeyword()
+				// if lexer.token.Kind
+				// lexer.consumeAttribues()
 			} else if lexer.cp == '/' {
 				lexer.step()
 				if !isLetterStart(lexer.cp) {
 					lexer.token.Kind = TBadToken
 				} else {
 					lexer.token.Kind = lexer.consumeKeyword()
+					for isLetterStart(lexer.cp) || isWhiteSpace(lexer.cp) || lexer.cp == '-' {
+						lexer.step()
+					}
+					if lexer.cp == ']' {
+						lexer.step()
+					}
 				}
 			} else {
 				lexer.token.Kind = TOpenBracket
@@ -215,8 +227,32 @@ func (lexer *lexer) consumeKeyword() T {
 			break
 		}
 	}
+	for isWhiteSpace(lexer.cp) {
+		lexer.step()
+	}
 	if lexer.cp == ']' {
 		lexer.step()
 	}
 	return Keywords[sb.String()]
+}
+
+func (lexer *lexer) consumeAttribues() {
+	if lexer.cp == ']' {
+		return
+	}
+	var sb strings.Builder
+	for {
+		if isLetterStart(lexer.cp) || IsNumeric(lexer.cp) {
+			sb.WriteRune(lexer.cp)
+			lexer.step()
+		} else {
+			break
+		}
+	}
+	for isWhiteSpace(lexer.cp) {
+		lexer.step()
+	}
+	// lexer.token.Kind = TAttribute
+	// lexer.attribues = append(lexer.attribues, lexer.token)
+	// lexer.consumeAttribues()
 }

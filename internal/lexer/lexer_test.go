@@ -116,6 +116,18 @@ func TestKeywords(t *testing.T) {
 	test.AssertEqual(t, lexKeyWord("[/youtube]"), "<youtube-videos-token>")
 }
 
+func TestKeywordWithUnnecessaryWhiteSpace(t *testing.T) {
+	lexContenet := func(input string) string {
+		t.Helper()
+		toks := Tokenizer(input).Tokens
+		test.AssertEqual(t, len(toks), 1)
+		test.AssertEqual(t, toks[0].DecodedText(input), input)
+		return toks[0].Kind.String()
+	}
+
+	test.AssertEqual(t, lexContenet("[/b align justify-all]"), "<bold-token>")
+}
+
 func TestBOM(t *testing.T) {
 	tok, _ := lexToken("\uFEFF")
 	test.AssertEqual(t, tok, TEof)
