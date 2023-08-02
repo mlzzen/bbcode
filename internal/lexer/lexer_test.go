@@ -22,7 +22,7 @@ func TestTokens(t *testing.T) {
 	}{
 		{"ident", "<ident-token>", TIdent},
 		{" ", "<whitespace-token>", TWhiteSpace},
-		{"[", "<[-token>", TOpenBraceket},
+		{"[", "<[-token>", TOpenBracket},
 		{"]", "<]-token>", TCloseBracket},
 		{"", "<eof-token>", TEof},
 	}

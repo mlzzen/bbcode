@@ -5,7 +5,7 @@ var tokenToString = map[T]string{
 	TIdent:             "<ident-token>",
 	TWhiteSpace:        "<whitespace-token>",
 	TEqual:             "<=-token>",
-	TOpenBraceket:      "<[-token>",
+	TOpenBracket:       "<[-token>",
 	TCloseBracket:      "<]-token>",
 	TBadToken:          "<bad-token>",
 	TBold:              "<bold-token>",

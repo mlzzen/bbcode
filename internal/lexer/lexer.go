@@ -14,7 +14,7 @@ const (
 	TIdent
 	TWhiteSpace
 	TEqual
-	TOpenBraceket
+	TOpenBracket
 	TCloseBracket
 	TBadToken
 	TBold
@@ -180,7 +180,7 @@ func (lexer *lexer) next() {
 					lexer.token.Kind = lexer.consumeKeyword()
 				}
 			} else {
-				lexer.token.Kind = TOpenBraceket
+				lexer.token.Kind = TOpenBracket
 			}
 		case ']':
 			lexer.step()
