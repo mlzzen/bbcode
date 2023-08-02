@@ -1,6 +1,7 @@
 package lexer
 
 import (
+	"strings"
 	"unicode/utf8"
 )
 
@@ -39,16 +40,6 @@ const (
 	TYoutubeVideos
 	TAttribute
 )
-
-var tokenToString = []string{
-	"<eof-token>",
-	"<ident-token>",
-	"<whitespace-token>",
-	"<=-token>",
-	"<[-token>",
-	"<]-token>",
-	"<bad-token>",
-}
 
 var Keywords = map[string]T{
 	"b":       TBold,
@@ -89,6 +80,10 @@ func (t T) String() string {
 
 func isWhiteSpace(s rune) bool {
 	return s == ' ' || s == '\t'
+}
+
+func isLetterStart(s rune) bool {
+	return (s >= 'a' && s <= 'z') || (s >= 'A' && s <= 'Z')
 }
 
 type Loc struct {
@@ -175,7 +170,18 @@ func (lexer *lexer) next() {
 			continue
 		case '[':
 			lexer.step()
-			lexer.token.Kind = TOpenBraceket
+			if isLetterStart(lexer.cp) {
+				lexer.token.Kind = lexer.consumeKeyword()
+			} else if lexer.cp == '/' {
+				lexer.step()
+				if !isLetterStart(lexer.cp) {
+					lexer.token.Kind = TBadToken
+				} else {
+					lexer.token.Kind = lexer.consumeKeyword()
+				}
+			} else {
+				lexer.token.Kind = TOpenBraceket
+			}
 		case ']':
 			lexer.step()
 			lexer.token.Kind = TCloseBracket
@@ -197,4 +203,20 @@ func (lexer *lexer) consumeIdent() T {
 		lexer.step()
 	}
 	return TIdent
+}
+
+func (lexer *lexer) consumeKeyword() T {
+	var sb strings.Builder
+	for {
+		if isLetterStart(lexer.cp) {
+			sb.WriteRune(lexer.cp)
+			lexer.step()
+		} else {
+			break
+		}
+	}
+	if lexer.cp == ']' {
+		lexer.step()
+	}
+	return Keywords[sb.String()]
 }
