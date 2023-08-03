@@ -38,8 +38,9 @@ const (
 	TTableRows
 	TTableContentCells
 	TYoutubeVideos
-	TAttribute
 	TCollapse
+	TStyle
+	TAttribute
 )
 
 var Keywords = map[string]T{
@@ -68,6 +69,7 @@ var Keywords = map[string]T{
 	"td":       TTableContentCells,
 	"youtube":  TYoutubeVideos,
 	"collapse": TCollapse,
+	"style":    TStyle,
 }
 
 func (t T) String() string {

@@ -31,4 +31,13 @@ var tokenToString = map[T]string{
 	TYoutubeVideos:     "<youtube-videos-token>",
 	TAttribute:         "<attribute-token>",
 	TCollapse:          "<collapse-token>",
+	TStyle:             "<style-token>",
+}
+
+var KnowElementAttrToString = map[T]string{
+	TFontSize:       "font-size",
+	TFontColor:      "color",
+	TCenterText:     "text-align",
+	TLeftAlignText:  "text-align",
+	TRightAlignText: "text-align",
 }
